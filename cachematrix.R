@@ -1,5 +1,5 @@
 ## this R file contains 2 functions written to compute, store, and return the inverse of any square matrix (assuming it is invertible)
-## you can test the functions by creating a random matrix, such as by
+## you can test the functions by creating a random matrix to apply the functions to, such as by
 ## x<-matrix(rexp(n^2, rate=.1), ncol=n)
 ## when n is any integer
 
