@@ -1,5 +1,4 @@
-## Put comments here that give an overall description of what your
-## functions do
+## this R file contains 2 functions written to compute, store, and return the inverse of any square matrix (assuming it is invertible)
 
 ## makeCacheMatrix transforms the square matrix into an array, adding a 3rd dimension (so x by x matrix becomes x by x by 2)
 
