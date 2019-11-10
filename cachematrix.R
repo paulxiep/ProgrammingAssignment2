@@ -1,23 +1,34 @@
 ## this R file contains 2 functions written to compute, store, and return the inverse of any square matrix (assuming it is invertible)
-## you can test the functions by creating a random matrix to apply the functions to, such as by
+## you can test the functions by creating a random matrix, such as by
 ## x<-matrix(rexp(n^2, rate=.1), ncol=n)
 ## when n is any integer
+## cacheSolve(makeCacheMatrix(x)) %*% x should return an identity matrix
 
-## makeCacheMatrix transforms the square matrix into an array, adding a 3rd dimension (so x by x matrix becomes x by x by 2)
+## makeCacheMatrix defines a few functions, converting the input matrix into a list which can store its inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-array(c(x,matrix(0/0,dim(x),dim(x))),dim=c(dim(x),2))
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setinv <- function(inv) m <<- inv
+  getinv <- function() m
+  list(set = set, get = get,
+       setinv = setinv,
+       getinv = getinv)
 }
 
-
-## cacheSolve computes the inverse of the matrix tranformed by makeCachematrix, and stores the inverse in [,,2] dimension
-## If the inverse already exists in the [,,2] dimension, it simply retrieves the stored value, no computation required.
-## output is of the same dimension as the original matrix (before being transformed by makeCacheMatrix)
-
+## cacheSolve searches the transformed matrix for its inverse, if the inverse already exists, it is retrieved, otherwise it is computed.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-  if(is.nan(x[1,1,2])){
-    x<-array(c(x[,,1],solve(x[,,1])),dim=dim(x))
+  m <- x$getinv()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
   }
-  x[,,2]
+  data <- x$get()
+  m <- solve(data, ...)
+  x$setinv(m)
+  m
 }
