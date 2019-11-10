@@ -3,6 +3,7 @@
 ## x<-matrix(rexp(n^2, rate=.1), ncol=n)
 ## when n is any integer
 ## cacheSolve(makeCacheMatrix(x)) %*% x should return an identity matrix
+## alternatively store the makeCacheMatrix(x) in y first, then try cacheSolve(y) %*% x
 
 ## makeCacheMatrix defines a few functions, converting the input matrix into a list which can store its inverse
 
